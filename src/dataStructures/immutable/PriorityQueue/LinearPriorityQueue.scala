@@ -28,7 +28,7 @@ sealed trait LinearPriorityQueue[+T] extends PriorityQueue[T] with IsPriorityQue
 
 object LinearPriorityQueue {
   // O(1)
-  def apply[T]() : LinearPriorityQueue[T] = EmptyLPQ
+  def apply[T]() : LinearPriorityQueue[T] = Empty
 
   // O(n^2)
   def apply[T](xs : T*)(implicit ord : Ordering[T]) : LinearPriorityQueue[T] = {
@@ -39,20 +39,20 @@ object LinearPriorityQueue {
   }
 }
 
-private object EmptyLPQ extends LinearPriorityQueue[Nothing] {
+private object Empty extends LinearPriorityQueue[Nothing] {
   def isEmpty = true
-  def first = throw new RuntimeException("first on empty queue")
-  def dequeue = throw new RuntimeException("dequeue on empty queue")
-  def enqueue[E](x : E)(implicit ord : Ordering[E]) = NodeLPQ(x,this)
+  def first = throw new PriorityQueueException("first on empty queue")
+  def dequeue = throw new PriorityQueueException("dequeue on empty queue")
+  def enqueue[E](x : E)(implicit ord : Ordering[E]) = Node(x,this)
 }
 
-private case class NodeLPQ[+T](hd : T, tl : LinearPriorityQueue[T]) extends LinearPriorityQueue[T] {
+private case class Node[+T](hd : T, tl : LinearPriorityQueue[T]) extends LinearPriorityQueue[T] {
   def isEmpty = false
   def first = hd
   def dequeue = tl
   def enqueue[E >: T](x : E)(implicit ord : Ordering[E]) =
     if(ord.compare(x,hd)<0)
-      NodeLPQ(x,this)
+      Node(x,this)
     else
-      NodeLPQ(hd,tl.enqueue(x))
+      Node(hd,tl.enqueue(x))
 }
