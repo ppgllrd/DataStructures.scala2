@@ -26,6 +26,12 @@ object LinearPriorityQueueDemo extends App {
   val q7: LinearPriorityQueue[Int] = q1.dequeue
 
 
+  println(q1==q2)
+  println(q1==q3)
+  println(q1==q6)
+
+
+
   case class A(val x: Int)
 
   class B(override val x: Int) extends A(x) {

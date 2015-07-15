@@ -7,22 +7,17 @@
 
 package dataStructures.immutable.PriorityQueue
 
-sealed trait LinearPriorityQueue[+T] extends PriorityQueue[T] with IsPriorityQueue[T,LinearPriorityQueue] {
-  override def toString =
-        elems.mkString("LinearPriorityQueue(",",",")")
+import dataStructures.utils.Utils
+import dataStructures.utils.Utils.cmpIter
+
+sealed trait LinearPriorityQueue[+T] extends PriorityQueue[T] with IsPriorityQueue[T,LinearPriorityQueue] with Utils[T] {
+  protected val className = "LinearPriorityQueue"
 
   def canEqual(o : Any) = o.isInstanceOf[LinearPriorityQueue[T]]
-  override def equals(that : Any) = that match {
-    case that : LinearPriorityQueue[T] => that.canEqual(this) && this.elems==that.elems
-    case _                             => false
-  }
 
-  override def hashCode : Int = {
-    val p = 31
-    var h = 17
-    for(e <- elems)
-      h += p*h + e.hashCode
-    return h
+  override def equals(that : Any) = that match {
+    case that : LinearPriorityQueue[T] => that.canEqual(this) && cmpIter(this.iter,that.iter)
+    case _                             => false
   }
 }
 

@@ -7,22 +7,17 @@
 
 package dataStructures.immutable.Stack
 
-sealed trait LinearStack[+T] extends Stack[T] with IsStack[T,LinearStack] {
-  override def toString =
-    elems.mkString("LinearStack(",",",")")
+import dataStructures.utils.Utils
+import dataStructures.utils.Utils.cmpIter
+
+sealed trait LinearStack[+T] extends Stack[T] with IsStack[T,LinearStack] with Utils[T] {
+  protected val className = "LinearStack"
 
   def canEqual(o : Any) = o.isInstanceOf[LinearStack[T]]
-  override def equals(that : Any) = that match {
-    case that : LinearStack[T] => that.canEqual(this) && this.elems==that.elems
-    case _                     => false
-  }
 
-  override def hashCode : Int = {
-    val p = 31
-    var h = 17
-    for(e <- elems)
-      h += p*h + e.hashCode
-    return h
+  override def equals(that : Any) = that match {
+    case that : LinearStack[T] => that.canEqual(this) && cmpIter(this.iter,that.iter)
+    case _                     => false
   }
 }
 

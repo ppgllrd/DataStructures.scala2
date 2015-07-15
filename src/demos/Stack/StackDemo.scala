@@ -23,4 +23,7 @@ object StackDemo extends App {
   println(s2)
   println(s3)
   println(s4)
+  println(s1==s2)
+  println(s2==s3)
+
 }
