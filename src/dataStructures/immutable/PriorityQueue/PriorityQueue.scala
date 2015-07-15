@@ -7,7 +7,11 @@
 
 package dataStructures.immutable.PriorityQueue
 
-trait PriorityQueue[+T] extends IsPriorityQueue[T, PriorityQueue] {
+trait PriorityQueue[+T] {
+  def isEmpty : Boolean
+  def first : T
+  def dequeue : PriorityQueue[T]
+  def enqueue[E >: T](e : E)(implicit ord : Ordering[E]) : PriorityQueue[E]
 
   protected def elems : List[T] =
     if(isEmpty)
@@ -15,3 +19,4 @@ trait PriorityQueue[+T] extends IsPriorityQueue[T, PriorityQueue] {
     else
       first :: dequeue.elems
 }
+
