@@ -5,7 +5,7 @@
  * Pepe Gallardo, 2015.
  ******************************************************************************/
 
-package demos.Stack
+package demos.immutable.Heap.Stack
 
 import dataStructures.immutable.Stack.{Stack, LinearStack}
 

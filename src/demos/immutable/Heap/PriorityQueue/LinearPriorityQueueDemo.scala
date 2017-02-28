@@ -5,7 +5,7 @@
  * Pepe Gallardo, 2015.
  ******************************************************************************/
 
-package demos.PriorityQueue
+package demos.immutable.Heap.PriorityQueue
 
 import dataStructures.immutable.PriorityQueue.{PriorityQueue, LinearPriorityQueue}
 

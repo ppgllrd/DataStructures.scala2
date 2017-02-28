@@ -1,4 +1,4 @@
-package demos.Heap
+package demos.immutable.Heap
 
 import dataStructures.immutable.Heap.WBLHeap
 
